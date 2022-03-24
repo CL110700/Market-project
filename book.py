@@ -1,3 +1,21 @@
+<<<<<<< HEAD
+def insert_sell(self,quantity,price):
+            
+            a=Order(Side.SELL,quantity,price) #order creation
+                    self._sell.append(a) # add order in the book
+                            #Sort the orders
+                                    self._sell=sorted(self._sell,key=lambda order: order.price)
+                                            #Print detail
+                                                    print(f"--- Insert {a.side.value} {a.quantity}@{a.price} on {self._name}")
+                                                            #Check Execution
+                                                                    while self.Check_execution():
+                                                                                    self.Execution()
+                                                                                            # Print execution + retrieve data
+                                                                                                    
+                                                                                                            #print book
+                                                                                                                    print(self.UI())
+
+=======
 from enum import Enum
 from texttable import Texttable
 
@@ -6,6 +24,7 @@ class Book:
         self._name=name
         self._buy=[]
         self._sell=[]
+
     def insert_buy(self,quantity,price):
         a=Order(Side.BUY,quantity,price) #order creation
         self._buy.append(a)
@@ -18,8 +37,22 @@ class Book:
         #print book
         print (self.UI())
 
-
     
+    def insert_sell(self,quantity,price):
+
+        a=Order(Side.SELL,quantity,price) #order creation
+        self._sell.append(a) # add order in the book
+        #Sort the orders
+        self._sell=sorted(self._sell,key=lambda order: order.price)
+        #Print detail
+        print(f"--- Insert {a.side.value} {a.quantity}@{a.price} on {self._name}")
+                                                                                                                                #Check Execution
+                                                                                                                                while self.Check_execution():
+            self.Execution()
+        #print execution and retrieve data
+        #print book
+        print(self.UI())
+
     def Check_execution(self):
         if not self._buy or not self._sell:
             return False
@@ -28,35 +61,36 @@ class Book:
         else:
             return False
 
-        def Execution(self):
-                    #Print transaction 
-                            n_transactions=min(self._buy[0].quantity,self._sell[0].quantity)
-                                    print(f"Execute {n_transactions} at {self._buy[0].price} on {self._name}")
-                                            # REtrieve
-                                                    self._buy[0].quantity-=n_transactions
-                                                            self._sell[0].quantity-=n_transactions
-                                                                    # Delete
-                                                                            if  self._buy[0].quantity==0:
-                                                                                            del self._buy[0]
-                                                                                                    if  self._sell[0].quantity==0:
-                                                                                                                    del self._sell[0]
+    def Execution(self):
+        #Print transaction 
+        n_transactions=min(self._buy[0].quantity,self._sell[0].quantity)
+        print(f"Execute {n_transactions} at {self._buy[0].price} on {self._name}")
+        # REtrieve
+        self._buy[0].quantity-=n_transactions
+        self._sell[0].quantity-=n_transactions
+        # Delete
+        if  self._buy[0].quantity==0:
+            del self._buy[0]
+        if  self._sell[0].quantity==0:
+            del self._sell[0]
                                                                                                                             
-                                                                                                                                def UI(self):
-                                                                                                                                            t=Texttable()
-                                                                                                                                                    t.header(["id","Buy","Sell","id"])
-                                                                                                                                                            for i in range(max(len(self._buy),len(self._sell))):
-                                                                                                                                                                            row=[]
-                                                                                                                                                                                        if i>=len(self._buy):
-                                                                                                                                                                                                            row.append("")
-                                                                                                                                                                                                                            row.append("")
-                                                                                                                                                                                                                                        else:
-                                                                                                                                                                                                                                                            row.append((self._buy[i].id))
-                                                                                                                                                                                                                                                                            row.append(str(self._buy[i]))
-                                                                                                                                                                                                                                                                                        if i>=len(self._sell):
-                                                                                                                                                                                                                                                                                                            row.append("")
-                                                                                                                                                                                                                                                                                                                            row.append("")
-                                                                                                                                                                                                                                                                                                                                        else:
-                                                                                                                                                                                                                                                                                                                                                            row.append(str(self._sell[i]))
-                                                                                                                                                                                                                                                                                                                                                                            row.append((self._sell[i].id))
-                                                                                                                                                                                                                                                                                                                                                                                        t.add_row(row)
-                                                                                                                                                                                                                                                                                                                                                                                                return t.draw()
+                                                                                                                             def UI(self):
+                                                                                                                                 t=Texttable()
+         t.header(["id","Buy","Sell","id"])
+         for i in range(max(len(self._buy),len(self._sell))):
+             row=[]
+             if i>=len(self.buy):
+                 row.append("")
+                 row.append("")
+             else:
+                 row.append((self._buy[i].id))
+                 row.append(str(self._buy[i]))
+             if i>=len(self._sell):
+                 row.append("")
+                 row.append("")
+             else:
+                 row.append(str(self._sell[i]))
+                 row.append((self._sell[i].id))
+            t.add_row(row)
+        return t.draw()
+
