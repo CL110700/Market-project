@@ -17,7 +17,8 @@ class Book:
             self.Execution()
         #print book
         print (self.UI())
-    
+
+
     
     def Check_execution(self):
         if not self._buy or not self._sell:
@@ -26,3 +27,36 @@ class Book:
             return True
         else:
             return False
+
+        def Execution(self):
+                    #Print transaction 
+                            n_transactions=min(self._buy[0].quantity,self._sell[0].quantity)
+                                    print(f"Execute {n_transactions} at {self._buy[0].price} on {self._name}")
+                                            # REtrieve
+                                                    self._buy[0].quantity-=n_transactions
+                                                            self._sell[0].quantity-=n_transactions
+                                                                    # Delete
+                                                                            if  self._buy[0].quantity==0:
+                                                                                            del self._buy[0]
+                                                                                                    if  self._sell[0].quantity==0:
+                                                                                                                    del self._sell[0]
+                                                                                                                            
+                                                                                                                                def UI(self):
+                                                                                                                                            t=Texttable()
+                                                                                                                                                    t.header(["id","Buy","Sell","id"])
+                                                                                                                                                            for i in range(max(len(self._buy),len(self._sell))):
+                                                                                                                                                                            row=[]
+                                                                                                                                                                                        if i>=len(self._buy):
+                                                                                                                                                                                                            row.append("")
+                                                                                                                                                                                                                            row.append("")
+                                                                                                                                                                                                                                        else:
+                                                                                                                                                                                                                                                            row.append((self._buy[i].id))
+                                                                                                                                                                                                                                                                            row.append(str(self._buy[i]))
+                                                                                                                                                                                                                                                                                        if i>=len(self._sell):
+                                                                                                                                                                                                                                                                                                            row.append("")
+                                                                                                                                                                                                                                                                                                                            row.append("")
+                                                                                                                                                                                                                                                                                                                                        else:
+                                                                                                                                                                                                                                                                                                                                                            row.append(str(self._sell[i]))
+                                                                                                                                                                                                                                                                                                                                                                            row.append((self._sell[i].id))
+                                                                                                                                                                                                                                                                                                                                                                                        t.add_row(row)
+                                                                                                                                                                                                                                                                                                                                                                                                return t.draw()
