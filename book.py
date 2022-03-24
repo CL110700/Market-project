@@ -12,7 +12,7 @@ class Book:
         self._buy.append(a)
         self._buy=sorted(self._buy,key=lambda order: -order.price)
         #Print detail
-        print(f"--- Insert {a.side.value} {a.quantity}@{a.price} on {self.name}")
+        print(f"--- Insert {a.side.value} {a.quantity}@{a.price} on {self._name}")
         #Check Execution
         while self.Check_execution():
             self.Execution()
@@ -60,7 +60,7 @@ class Book:
         t.header(["id","Buy","Sell","id"])
         for i in range(max(len(self._buy),len(self._sell))):
             row=[]
-            if i>=len(self.buy):
+            if i>=len(self._buy):
                 row.append("")
                 row.append("")
             else:

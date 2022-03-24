@@ -6,5 +6,5 @@ if [ !  -d "$FILE" ]; then
 fi
 
 source my-project-env/bin/activate
-sh requirements.txt
+pip install -r requirements.txt
 python main.py
