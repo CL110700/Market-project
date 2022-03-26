@@ -1,5 +1,6 @@
 from enum import Enum
 from texttable import Texttable
+import pandas as pd
 
 class Book:
     def __init__(self,name):
@@ -18,6 +19,7 @@ class Book:
             self.Execution()
         #print book
         print (self.UI())
+        print("---------------------------------")
     
     def insert_sell(self,quantity,price):
 
@@ -33,6 +35,7 @@ class Book:
         #print execution and retrieve data
         #print book
         print(self.UI())
+        print("---------------------------------")
 
     def Check_execution(self):
         if not self._buy or not self._sell:
@@ -74,6 +77,18 @@ class Book:
                 row.append((self._sell[i].id))
             t.add_row(row)
         return t.draw()
+
+    def __str__(self):
+        delta=abs(len(self._buy)-len(self._sell))
+        if len(self._buy)>len(self._sell):
+            copy_sell=self._sell[:]+[""]*delta
+            d={"BUY":self._buy,"SELL":copy_sell}
+            DF_order=pd.DataFrame(d)
+        else:
+            copy_buy=self._buy[:]+[""]*delta
+            d={"BUY":copy_buy,"SELL": self._sell}
+            DF_order=pd.DataFrame(d)
+        return DF_order.to_string()
 
 ids=1
 
