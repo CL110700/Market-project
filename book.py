@@ -18,7 +18,7 @@ class Book:
         while self.Check_execution():
             self.Execution()
         #print book
-        print (self.UI())
+        print (str(self))
         print("---------------------------------")
     
     def insert_sell(self,quantity,price):
@@ -34,7 +34,7 @@ class Book:
             self.Execution()
         #print execution and retrieve data
         #print book
-        print(self.UI())
+        print(str(self))
         print("---------------------------------")
 
     def Check_execution(self):
